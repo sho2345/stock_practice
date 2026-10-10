@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import pandas as pd
 import streamlit as st
 
-from . import charts
+from . import auth, charts
 from .portfolio import Portfolio, TradeError
 from .stocks import STOCK_BY_CODE, STOCKS, display_name, yahoo_url
 from .style import change_html, esc, kpis, money_change_html
@@ -79,6 +79,18 @@ def topnav() -> None:
         st.page_link("views/home.py", label="ホーム", icon="🏠")
         st.page_link("views/app_manual.py", label="アプリの使い方", icon="📘")
         st.page_link("views/stock_manual.py", label="株の基礎知識", icon="📗")
+        user_menu()
+
+
+def user_menu() -> None:
+    """ログイン中の名前とログアウトボタン（ログインが有効なときだけ表示）"""
+    if not auth.auth_enabled():
+        return
+    with st.popover(f"👤 {auth.user_label()}"):
+        if st.user.get("email"):
+            st.caption(st.user.get("email"))
+        if st.button("ログアウト", icon="🚪", key="logout"):
+            st.logout()
 
 
 def color_map(pf: Portfolio) -> dict[str, str]:

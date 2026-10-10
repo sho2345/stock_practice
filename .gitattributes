@@ -1,0 +1,2 @@
+# 起動.bat は Shift-JIS・CRLF のまま保つ（変換されると cmd で文字化けして動かなくなる）
+*.bat -text

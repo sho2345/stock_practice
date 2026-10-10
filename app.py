@@ -2,10 +2,15 @@
 
 import streamlit as st
 
-from stock_sim import style
+from stock_sim import auth, style
 
 st.set_page_config(page_title="はじめての株シミュレータ", page_icon="📈", layout="wide")
 style.inject_css()
+
+# ログインが有効なとき（secrets.toml に [auth] があるとき）は、ログインするまで他の画面を出さない
+if not auth.is_logged_in():
+    auth.login_page()
+    st.stop()
 
 # サイドバーのメニューは使わず、ホーム画面のボタンと各ページ上部のリンクで移動する
 nav = st.navigation(

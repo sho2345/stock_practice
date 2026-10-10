@@ -182,17 +182,27 @@ st.write("")
 ui.show_flash()
 
 prices_df = md.load_monthly_prices()
+# データが無い（初回・クラウドの再起動後）か、追加した銘柄のデータが無いときは自動で取得する。
+# 失敗したときに何度も取りに行かないよう、自動取得は 1 回のセッションにつき 1 回まで
+if (prices_df is None or md.missing_codes(prices_df)) and not st.session_state.get("tm_auto_fetched"):
+    st.session_state["tm_auto_fetched"] = True
+    with st.spinner("株価データを準備しています（初回は数十秒かかります）…"):
+        try:
+            md.fetch_monthly_prices()
+        except Exception as e:  # ネットワークエラーなど
+            st.error(f"株価データを取得できませんでした：{e}")
+    prices_df = md.load_monthly_prices()
+
 if prices_df is None:
     with st.container(key="card_download"):
-        st.markdown("### はじめに株価データをダウンロードします")
-        st.write("2005年〜先月までの、全銘柄の月ごとの株価を取得します（数十秒かかります）。")
+        st.markdown("### 株価データを取得できませんでした")
+        st.write("インターネット接続を確認して、もう一度お試しください。")
         fetch_button("株価データをダウンロードする", key="tm_fetch_first")
 else:
     missing = md.missing_codes(prices_df)
     if missing:
-        # 銘柄を追加した後は、新しい銘柄の株価がまだ手元にないので更新を促す
         with st.container(key="card_missing"):
-            st.warning(f"新しく追加された {len(missing)} 銘柄の株価データがまだありません。更新すると売買できるようになります（数十秒かかります）。")
+            st.warning(f"{len(missing)} 銘柄の株価データがまだありません。更新すると売買できるようになります（数十秒かかります）。")
             fetch_button("株価データを更新する", key="tm_fetch_missing")
     saved = storage.load(SAVE_NAME)
     if saved is None:

@@ -2,9 +2,12 @@
 
 import streamlit as st
 
-from stock_sim import storage, style, ui
+from stock_sim import auth, storage, style, ui
 
 ui.close_dialogs()  # 別のページに移ったら、開いていた売買ダイアログは閉じる
+if auth.auth_enabled():
+    with st.container(horizontal=True, horizontal_alignment="right"):
+        ui.user_menu()
 style.hero("📈", "はじめての株シミュレータ", "本物の株価で、お金を使わずに投資を体験しよう。株を知らなくても大丈夫！")
 
 st.markdown(
