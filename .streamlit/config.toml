@@ -1,0 +1,20 @@
+# アプリ全体の見た目（色・フォント・角の丸み）
+[theme]
+base = "light"
+primaryColor = "#5b4fe0"
+backgroundColor = "#f6f7fb"
+secondaryBackgroundColor = "#eceefa"
+textColor = "#1d1f33"
+borderColor = "#e2e4f0"
+baseRadius = "0.9rem"
+buttonRadius = "full"
+showWidgetBorder = true
+font = "Zen Maru Gothic:https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap"
+# グラフの系列色（色覚の違いに配慮して検証済みの順番）
+chartCategoricalColors = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,9 @@
+# Python の仮想環境・キャッシュ
+.venv/
+__pycache__/
+
+# 株価データ（アプリから再取得できる）と個人の売買記録は GitHub に上げない
+data/
+
+# ログイン・DB の接続情報（パスワード等）は絶対に GitHub に上げない
+.streamlit/secrets.toml
