@@ -51,3 +51,4 @@ def login_page() -> None:
         if st.button("Google アカウントでログイン", type="primary", icon="🔑"):
             st.login()
         st.caption("ログインに使うのは、名前・メールアドレスなどの基本情報だけです。Google のパスワードがこのアプリに渡ることはありません。")
+        st.page_link("views/privacy.py", label="プライバシーポリシー", icon="🔒")

@@ -76,6 +76,7 @@ with st.container(horizontal=True, gap="small"):
         st.switch_page("views/app_manual.py")
     if st.button("株の基礎知識", icon="📗"):
         st.switch_page("views/stock_manual.py")
+    st.page_link("views/privacy.py", label="プライバシーポリシー", icon="🔒")
 st.markdown(
     '<div class="footer-note">※ このアプリは学習用のシミュレータです。特定の銘柄の売買をすすめるものではありません。</div>',
     unsafe_allow_html=True,
