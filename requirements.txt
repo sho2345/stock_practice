@@ -3,6 +3,8 @@ yfinance>=0.2.50
 pandas>=2.0
 # ログイン（Google アカウント）用
 Authlib>=1.3.2
+# Authlib がログイン処理で使う通信ライブラリ（自動では入らないため明記する）
+httpx>=0.27
 # データベース（PostgreSQL）用
 sqlalchemy>=2.0
 psycopg2-binary>=2.9
