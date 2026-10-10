@@ -31,9 +31,22 @@ _TABLE = sa.Table(
 
 def _db_url() -> str | None:
     try:
-        return st.secrets["database"]["url"] if "database" in st.secrets else None
+        url = st.secrets["database"]["url"] if "database" in st.secrets else None
     except Exception:  # secrets.toml が無いとき
         return None
+    return normalize_db_url(url.strip()) if url else None
+
+
+def normalize_db_url(url: str) -> str:
+    """PostgreSQL の接続文字列を、インストール済みのドライバ（psycopg2）を使う形にそろえる
+
+    Neon などでコピーできる接続文字列は postgres:// / postgresql:// / postgresql+psycopg:// など
+    書き方がまちまちで、そのままだと入っていないドライバ（psycopg 3）が選ばれて失敗することがあるため
+    """
+    scheme, sep, rest = url.partition("://")
+    if sep and scheme.split("+")[0] in ("postgres", "postgresql"):
+        return f"postgresql+psycopg2://{rest}"
+    return url  # SQLite など PostgreSQL 以外はそのまま
 
 
 @st.cache_resource(show_spinner=False)
