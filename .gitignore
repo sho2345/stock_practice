@@ -7,3 +7,6 @@ data/
 
 # ログイン・DB の接続情報（パスワード等）は絶対に GitHub に上げない
 .streamlit/secrets.toml
+
+# 自分用のメモ（構成・公開手順など）は GitHub に上げない
+private/

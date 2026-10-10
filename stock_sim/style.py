@@ -91,6 +91,16 @@ h1, h2, h3, h4 { letter-spacing: .01em; }
 /* ---- タイムマシンの操作パネル ---- */
 .st-key-tm_panel { background: #1d1f33; border-radius: 24px; padding: 22px 26px; color: #fff; }
 .st-key-tm_panel p, .st-key-tm_panel span { color: #fff; }
+/* パネル内のボタン：黒い背景に合わせて半透明＋白文字に固定する
+   （上の「文字を白に」の指定がボタンにもかかり、白いボタンだと文字が見えなくなっていたため） */
+.st-key-tm_panel button {
+  background: rgba(255,255,255,.10) !important; border: 1px solid rgba(255,255,255,.45) !important;
+  color: #fff !important;
+}
+.st-key-tm_panel button:hover { background: rgba(255,255,255,.22) !important; border-color: #fff !important; }
+.st-key-tm_panel button p { color: #fff !important; font-weight: 700; }
+.st-key-tm_panel button:disabled { background: rgba(255,255,255,.04) !important; border-color: rgba(255,255,255,.18) !important; }
+.st-key-tm_panel button:disabled p { color: rgba(255,255,255,.4) !important; }
 .tm-now-label { color: #b9b6ff; font-size: .9rem; font-weight: 700; letter-spacing: .1em; }
 .tm-now { font-size: 2.4rem; font-weight: 800; line-height: 1.15; }
 .tm-range { color: #a9abc4 !important; font-size: .85rem; margin-top: 6px; }
